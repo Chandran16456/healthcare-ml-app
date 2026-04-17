@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroMed AI Command Deck</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="scene">
+        <div class="grid-bg"></div>
+        <div class="scanline"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <aside class="side-rail">
+            <div class="rail-logo">
+                <div class="logo-core"></div>
+            </div>
+
+            <div class="rail-stack">
+                <div class="rail-chip active">DX</div>
+                <div class="rail-chip">AI</div>
+                <div class="rail-chip">ML</div>
+                <div class="rail-chip">SQL</div>
+            </div>
+
+            <div class="rail-footer">
+                <span>NODE</span>
+                <strong>LOCAL</strong>
+            </div>
+        </aside>
+
+        <div class="main-shell">
+            <header class="topbar">
+                <div class="brand">
+                    <div class="brand-mark"></div>
+                    <div>
+                        <p class="brand-kicker">NEUROMED SYSTEMS // PREDICTIVE HEALTH GRID</p>
+                        <h1>AI DIAGNOSTIC COMMAND DECK</h1>
+                    </div>
+                </div>
+
+                <div class="topbar-status">
+                    <div class="status-pill live">MODEL ONLINE</div>
+                    <div class="status-pill">3 ENGINES ACTIVE</div>
+                    <div class="status-pill">HOSPITAL FINDER UI</div>
+                </div>
+            </header>
+
+            <section class="hero-strip panel">
+                <div class="hero-copy">
+                    <span class="section-kicker">CLINICAL INTELLIGENCE LAYER</span>
+                    <h2>Machine Learning Powered Disease Screening Console</h2>
+                    <p>
+                        A futuristic medical AI interface powered by your custom SQL ETL pipeline,
+                        feature engineering workflow, and trained prediction engines for diabetes,
+                        heart disease, and kidney disease.
+                    </p>
+                </div>
+
+                <div class="hero-telemetry">
+                    <div class="telemetry-card">
+                        <span class="telemetry-label">PIPELINE</span>
+                        <strong>SQL → ML → FLASK</strong>
+                    </div>
+                    <div class="telemetry-card">
+                        <span class="telemetry-label">MODEL CORE</span>
+                        <strong>RANDOM FOREST</strong>
+                    </div>
+                    <div class="telemetry-card">
+                        <span class="telemetry-label">STATUS</span>
+                        <strong>READY</strong>
+                    </div>
+                </div>
+            </section>
+
+            <main class="dashboard">
+                <section class="left-panel">
+                    <div class="panel map-panel">
+                        <div class="panel-header">
+                            <span class="panel-tag">GEO-CARE ROUTING</span>
+                            <h3>Hospital Finder</h3>
+                        </div>
+
+                        <div class="map-box">
+                            <div class="hospital-radar">
+                                <div class="radar-ring ring-1"></div>
+                                <div class="radar-ring ring-2"></div>
+                                <div class="radar-ring ring-3"></div>
+                                <div class="radar-sweep"></div>
+                                <div class="radar-core"></div>
+                            </div>
+                            <div class="map-grid-overlay"></div>
+                        </div>
+
+                        <div class="map-caption">
+                            <span class="map-dot"></span>
+                            <p>
+                                {% if location %}
+                                    Location signal acquired: <strong>{{ location }}</strong>
+                                {% else %}
+                                    Enter a city or ZIP code to activate nearby care-center routing.
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <div class="hospital-box">
+                            <div class="hospital-title">Nearby Care Guidance</div>
+
+                            {% if hospital_results %}
+                                <div class="hospital-list">
+                                    {% for item in hospital_results %}
+                                        <div class="hospital-item">{{ item }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="hospital-item">No hospital search triggered yet.</div>
+                                <div class="hospital-item">Specialty-based care suggestions will appear here.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="panel pulse-panel">
+                        <div class="panel-header">
+                            <span class="panel-tag">BIO-SIGNAL MONITOR</span>
+                            <h3>Live Pulse Stream</h3>
+                        </div>
+
+                        <div class="pulse-box">
+                            <svg viewBox="0 0 600 160" class="pulse-svg" preserveAspectRatio="none">
+                                <path class="pulse-line" d="M0 90 L50 90 L75 90 L95 40 L120 130 L145 70 L175 90 L230 90 L260 90 L290 35 L320 130 L350 78 L390 90 L450 90 L480 90 L505 45 L530 125 L560 82 L600 90"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="center-panel panel">
+                    <div class="panel-header">
+                        <span class="panel-tag">PATIENT INPUT TERMINAL</span>
+                        <h3>Clinical Data Entry Console</h3>
+                    </div>
+
+                    <form action="/" method="post" class="prediction-form">
+                        <section class="model-tabs">
+    <label class="tab-option">
+        <input type="radio" name="model_type" value="diabetes"
+        {{ 'checked' if active_tab == 'diabetes' else '' }}>
+        <span class="tab">Diabetes Engine</span>
+    </label>
+
+    <label class="tab-option">
+        <input type="radio" name="model_type" value="heart"
+        {{ 'checked' if active_tab == 'heart' else '' }}>
+        <span class="tab">Heart Engine</span>
+    </label>
+
+    <label class="tab-option">
+        <input type="radio" name="model_type" value="kidney"
+        {{ 'checked' if active_tab == 'kidney' else '' }}>
+        <span class="tab">Kidney Engine</span>
+    </label>
+</section>
+
+                        <div class="form-grid">
+                            <div class="input-unit">
+                                <label>Age</label>
+                                <input type="number" step="any" name="age" placeholder="45" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>Healthcare Expenses</label>
+                                <input type="number" step="any" name="healthcare_expenses" placeholder="240000" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>Healthcare Coverage</label>
+                                <input type="number" step="any" name="healthcare_coverage" placeholder="3500" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>Glucose</label>
+                                <input type="number" step="any" name="glucose" placeholder="145" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>BMI</label>
+                                <input type="number" step="any" name="bmi" placeholder="29.4" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>Systolic BP</label>
+                                <input type="number" step="any" name="systolic_bp" placeholder="130" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>Diastolic BP</label>
+                                <input type="number" step="any" name="diastolic_bp" placeholder="85" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>HbA1c</label>
+                                <input type="number" step="any" name="hba1c" placeholder="6.4" required>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>Gender</label>
+                                <select name="gender" required>
+                                    <option value="">Select</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="input-unit">
+                                <label>Marital Status</label>
+                                <select name="marital" required>
+                                    <option value="">Select</option>
+                                    <option value="M">Married</option>
+                                    <option value="S">Single</option>
+                                </select>
+                            </div>
+
+                            <div class="input-unit full-span">
+                                <label>Hospital Finder Location</label>
+                                <input type="text" name="location" placeholder="Enter city or ZIP code" value="{{ location }}">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="predict-btn">
+                            <span>INITIATE DIAGNOSTIC</span>
+                        </button>
+                    </form>
+                </section>
+
+                <section class="right-panel">
+                    <div class="panel result-panel">
+                        <div class="panel-header">
+                            <span class="panel-tag">INFERENCE OUTPUT</span>
+                            <h3>Risk Evaluation Core</h3>
+                        </div>
+
+                        <div class="meter-wrap">
+                            <div class="meter-ring">
+                                <div class="meter-inner">
+                                    {% if result %}
+                                        {% if risk_label == 'Low Risk' %}
+                                            <span class="meter-value safe-text">SAFE</span>
+                                        {% else %}
+                                            <span class="meter-value danger-text">RISK</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="meter-value idle-text">SCAN</span>
+                                    {% endif %}
+                                    <span class="meter-sub">AI STATUS</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% if error_message %}
+<div class="result-box alert" style="margin-bottom: 14px;">
+    <div class="result-kicker">SYSTEM ERROR</div>
+    <div class="result-text" style="font-size: 16px;">{{ error_message }}</div>
+</div>
+{% endif %}
+
+                        {% if result %}
+                        <div class="result-box {% if risk_label == 'Low Risk' %}safe{% else %}alert{% endif %}">
+                            <div class="result-kicker">SYSTEM VERDICT</div>
+                            <div class="result-text">{{ result.model_type|title }}: {{ risk_label }}</div>
+
+                            <div class="result-meta">
+                                <div><strong>Prediction Flag:</strong> {{ result.prediction }}</div>
+                                {% if result.probability is not none %}
+                                    <div><strong>Confidence:</strong> {{ result.probability }}%</div>
+                                {% endif %}
+                                <div><strong>Recommended Specialist:</strong> {{ specialist }}</div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="result-box idle">
+                            <div class="result-kicker">SYSTEM STANDBY</div>
+                            <div class="result-text">Awaiting patient data stream.</div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="panel telemetry-panel">
+                        <div class="panel-header">
+                            <span class="panel-tag">AI ACTIVITY LOG</span>
+                            <h3>Console Feed</h3>
+                        </div>
+
+                        <div class="log-box">
+                            <div class="log-line"><span>[01]</span> SQL pipeline linked</div>
+                            <div class="log-line"><span>[02]</span> Feature vectors loaded</div>
+                            <div class="log-line"><span>[03]</span> Multi-model inference engine ready</div>
+                            <div class="log-line"><span>[04]</span> Hospital finder UI active</div>
+                        </div>
+
+                        <div class="console-line"><span>ENGINE</span><strong>RANDOM FOREST</strong></div>
+                        <div class="console-line"><span>DATA FLOW</span><strong>STABLE</strong></div>
+                        <div class="console-line"><span>PIPELINE</span><strong>CONNECTED</strong></div>
+                        <div class="console-line"><span>DEPLOY MODE</span><strong>LOCAL / READY</strong></div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
